@@ -5,6 +5,9 @@ function checkIn() {
     return;
   }
 
+  // Show loading spinner
+  document.getElementById('status').innerHTML = '<div class="spinner"></div>';
+
   fetch('https://api.github.com/users/' + username)
     .then(response => response.json())
     .then(data => {
