@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitTogether Check-in</title>
+  <title>GitHub Check-in</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <h1>GitHub Check-in</h1>
     <input type="text" id="username" placeholder="Enter GitHub Username">
-    <button onclick="checkIn()">Proceed</button>
+    <div id="button-container">
+      <button onclick="checkIn()">Proceed</button>
+      <div class="spinner"></div>
+    </div>
     <p id="status"></p>
   </div>
-  <div class="spinner"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
