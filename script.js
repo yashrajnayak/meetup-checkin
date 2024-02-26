@@ -8,13 +8,9 @@ async function fetchFollowings() {
   try {
     const response = await fetch(`https://api.github.com/users/${username}/following`);
     const data = await response.json();
-    const followingsList = document.getElementById('followingsList');
-    followingsList.innerHTML = '';
-    data.forEach(following => {
-      const listItem = document.createElement('li');
-      listItem.textContent = following.login;
-      followingsList.appendChild(listItem);
-    });
+    const followingsList = data.map(following => following.login).join(',');
+    const googleFormsURL = `https://docs.google.com/forms/d/e/1FAIpQLSduOWOnzB-JlTKt9loP8RL3qCzFqbSTpV7q5eFkTgYEqSuqRA/viewform?usp=pp_url&entry.74991674=${username}&entry.2080764552=${followingsList}`;
+    window.open(googleFormsURL, '_blank');
   } catch (error) {
     alert('Error fetching data from GitHub API. Please try again later.');
     console.error(error);
