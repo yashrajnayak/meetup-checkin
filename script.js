@@ -1,18 +1,26 @@
-async function fetchFollowings() {
-  const username = document.getElementById('usernameInput').value.trim();
-  if (!username) {
-    alert('Please enter a valid GitHub username.');
+function checkIn() {
+  var username = document.getElementById('username').value.trim();
+  if (username === '') {
+    alert('Please enter a GitHub username.');
     return;
   }
 
-  try {
-    const response = await fetch(`https://api.github.com/users/${username}/following`);
-    const data = await response.json();
-    const followingsList = data.map(following => following.login).join(',');
-    const googleFormsURL = `https://docs.google.com/forms/d/e/1FAIpQLSduOWOnzB-JlTKt9loP8RL3qCzFqbSTpV7q5eFkTgYEqSuqRA/viewform?usp=pp_url&entry.74991674=${username}&entry.2080764552=${followingsList}`;
-    window.open(googleFormsURL, '_blank');
-  } catch (error) {
-    alert('Error fetching data from GitHub API. Please try again later.');
-    console.error(error);
-  }
+  fetch('https://api.github.com/users/' + username)
+    .then(response => response.json())
+    .then(data => {
+      var name = data.name || 'N/A';
+      var followers = data.followers;
+      var following = data.following;
+      return fetch('https://api.github.com/users/' + username + '/following')
+        .then(response => response.json())
+        .then(followingData => {
+          var followingList = followingData.map(user => user.login).join(',');
+          var url = 'https://docs.google.com/forms/d/e/1FAIpQLSduOWOnzB-JlTKt9loP8RL3qCzFqbSTpV7q5eFkTgYEqSuqRA/viewform?usp=pp_url&entry.74991674=' + username + '&entry.1992563863=' + name + '&entry.1448618851=' + followers + '&entry.1722898164=' + following + '&entry.2080764552=' + followingList;
+          window.open(url, '_blank');
+        });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('status').innerText = 'Error: User not found.';
+    });
 }
