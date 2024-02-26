@@ -15,8 +15,10 @@ body {
 input[type="text"] {
   padding: 10px;
   margin-bottom: 10px;
-  width: 100%;
-  box-sizing: border-box;
+}
+
+#button-container {
+  position: relative;
 }
 
 button {
@@ -31,17 +33,8 @@ button:hover {
   background-color: #0056b3;
 }
 
-#status {
-  margin-top: 20px;
-}
-
-@media (min-width: 768px) {
-  .container {
-    width: 400px;
-  }
-}
-
 .spinner {
+  display: none;
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-left-color: #007bff;
   border-radius: 50%;
@@ -49,6 +42,10 @@ button:hover {
   height: 30px;
   animation: spin 1s linear infinite;
   margin: 0 auto;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 @keyframes spin {
@@ -57,3 +54,6 @@ button:hover {
   }
 }
 
+#status {
+  margin-top: 20px;
+}
